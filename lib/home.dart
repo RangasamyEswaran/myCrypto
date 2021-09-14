@@ -114,8 +114,16 @@ class _HomeState extends State<Home> {
           ),
           child: Card(
             child: ListTile(
-              leading: Text("${post["id"]}"),
-              title: Text("${post["title"]}"),
+              leading: Text("${post["id"]}",style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 20
+              )),
+              title: Text("${post["title"]}",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600
+              ),
+              ),
               subtitle: Text("${post["body"]}"),
               trailing: Text("${post["userId"]}"),
               ),
