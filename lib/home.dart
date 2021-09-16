@@ -18,12 +18,12 @@ class _HomeState extends State<Home> {
   var _getJson=[];
    
 
-   final Url = "https://jsonplaceholder.typicode.com/posts/1/comments";
+   final getUrl = 'https://jsonplaceholder.typicode.com/posts';
 
   void MyCrypto() async{
     try{
 
-      final response = await get(Uri.parse(Url));
+      final response = await get(Uri.parse(getUrl));
     
       final jsonData =  json.decode(response.body) as List;
 
@@ -116,18 +116,18 @@ class _HomeState extends State<Home> {
             ),
             child: Card(
               child: ListTile(
-                leading: Text("${post["postId"]}",style: TextStyle(
+                leading: Text("${post["id"]}",style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 20
                 )),
-                title: Text("${post["name"]}",
+                title: Text("${post["title"]}",
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600
                 ),
                 ),
                 subtitle: Text("${post["body"]}"),
-                trailing: Text("${post["id"]}"),
+                trailing: Text("${post["userId"]}"),
                 ),
             ),
             
