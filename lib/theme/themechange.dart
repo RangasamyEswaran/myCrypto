@@ -20,7 +20,7 @@ class MyTheme{
     scaffoldBackgroundColor: Colors.white,
     colorScheme: ColorScheme.light(),
     appBarTheme: AppBarTheme(
-      backgroundColor: Colors.red[100],
+      backgroundColor: Colors.white30,
       
     )
   );

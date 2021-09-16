@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 
 import 'package:http/http.dart';
+import 'package:mycrypto/adduser/adduser.dart';
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -17,7 +18,7 @@ class _HomeState extends State<Home> {
   var _getJson=[];
    
 
-   final Url = "https://jsonplaceholder.typicode.com/posts";
+   final Url = "https://jsonplaceholder.typicode.com/posts/1/comments";
 
   void MyCrypto() async{
     try{
@@ -101,36 +102,45 @@ class _HomeState extends State<Home> {
         
         
       ),
-      body: ListView.builder(
-        physics: ClampingScrollPhysics(),
-        
-        itemCount: _getJson.length,
-        itemBuilder: (context,index) {
-          final post = _getJson[index];
-        return Container(
-          margin: EdgeInsets.only(top: 20,left: 10,right: 10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20))
-          ),
-          child: Card(
-            child: ListTile(
-              leading: Text("${post["id"]}",style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 20
-              )),
-              title: Text("${post["title"]}",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600
-              ),
-              ),
-              subtitle: Text("${post["body"]}"),
-              trailing: Text("${post["userId"]}"),
-              ),
-          ),
-        );
-       },
-      )
+      body: Container(
+        child: ListView.builder(
+          physics: ClampingScrollPhysics(),
+          
+          itemCount: _getJson.length,
+          itemBuilder: (context,index) {
+            final post = _getJson[index];
+          return Container(
+            margin: EdgeInsets.only(top: 20,left: 10,right: 10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20))
+            ),
+            child: Card(
+              child: ListTile(
+                leading: Text("${post["postId"]}",style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 20
+                )),
+                title: Text("${post["name"]}",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600
+                ),
+                ),
+                subtitle: Text("${post["body"]}"),
+                trailing: Text("${post["id"]}"),
+                ),
+            ),
+            
+          );
+         },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => AddUser(),));
+        },
+        child: Icon(Icons.add_outlined),
+        ),
     );
   }
 }
