@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:mycrypto/adduser/jsoninput.dart';
 import 'package:mycrypto/home.dart';
+import 'package:http/http.dart' as http;
 
 class AddUser extends StatefulWidget {
   const AddUser({Key? key}) : super(key: key);
@@ -15,18 +16,30 @@ class _AddUserState extends State<AddUser> {
   TextEditingController subnamecontroller = TextEditingController();
   TextEditingController idcontroller = TextEditingController();
 
-  Dio dio = new Dio();
-
-  Future<Album> postData(String name, String subname, String id) async {
-    dynamic data = {'title': name, 'body': subname, 'userId': id};
-    final String pathUrl = 'https://jsonplaceholder.typicode.com/posts';
-    var responce = await dio.post(pathUrl,
-        data: data,
-        options: Options(headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-        }));
-    return responce.data;
+final postUrl = 'https://jsonplaceholder.typicode.com/posts';
+ postData() async{
+  var responce = await http.post(Uri.parse(postUrl),
+  body: {
+    'title': namecontroller.text,
+    'body': subnamecontroller.text,
+    'userId': idcontroller.text
+  },
+  headers: {
+    'Content-type':'application/x-www-form-urlencoded'
   }
+  );
+  print(responce.body);
+}
+  
+
+  // Future<Album> postData(String name, String subname, String id) async {
+  //   var responce = await http.post("https://jsonplaceholder.typicode.com/posts",
+  //       data: {'title': name., 'body': subname.text, 'userId': 1},
+  //       options: Options(headers: {
+  //         'Content-type': 'application/json; charset=UTF-8',
+  //       }));
+  //   return responce.data;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -111,20 +124,13 @@ class _AddUserState extends State<AddUser> {
                           ),
                         ),
                       )),
-                  SizedBox(
-                    height: 120,
-                  ),
+                  
                   SizedBox(
                     height: 75,
                     child: InkWell(
                       onTap: () async {
                         print('Posting..');
-                        final String name = namecontroller.text;
-                        final String subname = subnamecontroller.text;
-                        final String id = idcontroller.text;
-
-                        await postData(name, subname, id)
-                            .then((value) => print(value));
+                        postData();
                         Navigator.of(context).push(
                             MaterialPageRoute(builder: (context) => Home()));
                       },
